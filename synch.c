@@ -10,7 +10,7 @@
 #include <semaphore.h>
 #include <sys/sem.h>
 
-#define SIZE 1024
+#define SIZE 16
 
 /**
 * This class is for understanding the use
@@ -23,11 +23,12 @@
 
 /** Global variables */
 int shmId;
-char* shmPtr;
+long int* shmPtr;
 pid_t pid;
 sem_t mutex;
 int status;
 int semId;
+int loop
 struct sembuf semBuffer;
 
 /** Instanciating methods */
@@ -61,6 +62,15 @@ int main (int argc, char** argv) {
 	// removes the semaphore
 	semctl (semId, 0, IPC_RMID);
 
+	wait(&status);
+
+	if (shmdt(shmPtr) < 0) {
+		fprintf(stderr, "Can't let go...\n");
+		exit(1);
+	} else if (shmctl(shmId, IPC_RMID, 0) < 0) {
+		fprintf(stderr, "Memory can't be deallocated");
+		exit(1);
+	}
 }
 
 /**
