@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <pthread.h>
 #include <semaphore.h>
+#include <sys/sem.h>
 
 #define SIZE 1024
 
@@ -26,6 +27,8 @@ char* shmPtr;
 pid_t pid;
 sem_t mutex;
 int status;
+int semId;
+struct sembuf semBuffer;
 
 /** Instanciating methods */
 void sigHandler(int input);
@@ -46,7 +49,17 @@ int main (int argc, char** argv) {
 
 	printf("\nCreating a semaphore\n");
 
+	// creates a new semaphore 
+	semId = semget (IPC_PRIVATE, 1, 600);
 
+	// initializes the semaphore set
+	semctl (semId, 0, SETVAL, 1);
+
+	// performs operations on elements
+	semop(semId, &semBuffer, 1);
+
+	// removes the semaphore
+	semctl (semId, 0, IPC_RMID);
 
 }
 
