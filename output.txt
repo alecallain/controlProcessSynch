@@ -1,0 +1,4 @@
+Script started, file is typescript
+]0;bolena@eos25:~/452/labs/lab6/controlProcessSynch[bolena@eos25 controlProcessSynch]$ fsadf^C
+]0;bolena@eos25:~/452/labs/lab6/controlProcessSynch[bolena@eos25 controlProcessSynch]$ ^C
+]0;bolena@eos25:~/452/labs/lab6/controlProcessSynch[bolena@eos25 controlProcessSynch]$ 
