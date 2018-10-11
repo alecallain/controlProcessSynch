@@ -1,0 +1,18 @@
+Script started on 2018-10-10 20:30:23-04:00
+]0;bolena@eos22:~/452/labs/lab6/controlProcessSynch[bolena@eos22 controlProcessSynch]$ gcc -g -Wall -o P semaphore.c 
+]0;bolena@eos22:~/452/labs/lab6/controlProcessSynch[bolena@eos22 controlProcessSynch]$ ./P 90
+values: 0	1
+]0;bolena@eos22:~/452/labs/lab6/controlProcessSynch[bolena@eos22 controlProcessSynch]$ ./P 90[K[K1000
+values: 0	1
+]0;bolena@eos22:~/452/labs/lab6/controlProcessSynch[bolena@eos22 controlProcessSynch]$ ./P 1000[K[K[K[K5000
+values: 0	1
+]0;bolena@eos22:~/452/labs/lab6/controlProcessSynch[bolena@eos22 controlProcessSynch]$ ./P 5000[K4
+values: 0	1
+]0;bolena@eos22:~/452/labs/lab6/controlProcessSynch[bolena@eos22 controlProcessSynch]$ ./P 7983
+values: 0	1
+]0;bolena@eos22:~/452/labs/lab6/controlProcessSynch[bolena@eos22 controlProcessSynch]$ ./P 923[K[K[K1234567
+values: 0	1
+]0;bolena@eos22:~/452/labs/lab6/controlProcessSynch[bolena@eos22 controlProcessSynch]$ ext[Kit
+exit
+
+Script done on 2018-10-10 20:32:01-04:00
