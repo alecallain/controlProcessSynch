@@ -43,7 +43,7 @@ int main (int argc, char *argv[])
    SIGNAL[0].sem_num = 0;
    SIGNAL[0].sem_op = 1;
    SIGNAL[0].sem_flg = SEM_UNDO;
-   
+
    // get value of loop variable (from command-line argument)
    loop = atoi(argv[1]);
    if ((shmId = shmget (IPC_PRIVATE, SIZE, IPC_CREAT|S_IRUSR|S_IWUSR)) < 0) {
@@ -59,7 +59,7 @@ int main (int argc, char *argv[])
    shmPtr[1] = 1;
 
    if (!(pid = fork())) {
-      for (i=0; i<loop; i++) {
+      for (i=0; i<loop; i++) { // child
                // swap the contents of shmPtr[0] and shmPtr[1]
          semop(semId, WAIT, 1); // semaphore wait block
 	       memcpy(&temp, &shmPtr[0], sizeof(shmPtr[0]));
@@ -74,7 +74,7 @@ int main (int argc, char *argv[])
       exit(0);
    }
    else
-      for (i=0; i<loop; i++) {
+      for (i=0; i<loop; i++) { // parent
                // swap the contents of shmPtr[1] and shmPtr[0]
          semop(semId, WAIT, 1); // semaphore wait block
 	       memcpy(&temp, &shmPtr[0], sizeof(shmPtr[0]));
@@ -94,6 +94,7 @@ int main (int argc, char *argv[])
       perror ("can't deallocate\n");
       exit(1);
    }
-
+   //  remove the semaphore referenced by semId
+   semctl (semId, 0, IPC_RMID);
    return 0;
 }
