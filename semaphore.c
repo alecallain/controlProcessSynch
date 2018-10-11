@@ -11,14 +11,12 @@
 
 #define SIZE 16
 
-/*
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
 * This demonstraits how to use semaphores to protect shared memory.
 * Allison Bolen
 * Alec Allain
 * Oct 2018
-*/
-
-
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
 int main (int argc, char *argv[])
 {
    struct sembuf WAIT[1], SIGNAL[1];
@@ -28,12 +26,11 @@ int main (int argc, char *argv[])
    pid_t pid;
    int semId;
 
-   /*  create a new semaphore set for use by this (and other) processes..
-   */
+   //  create a new semaphore set for use by this (and other) processes..
    semId = semget (IPC_PRIVATE, 1, 00600);
-   /*  initialize the semaphore set referenced by the previously obtained semId handle.
-   */
+   //  initialize the semaphore set referenced by the previously obtained semId handle.
    semctl (semId, 0, SETVAL, 1);
+
    // initialze sembuf set up on how to use teh semop function
    WAIT[0].sem_num = 0;
    WAIT[0].sem_op = -1;
@@ -60,7 +57,7 @@ int main (int argc, char *argv[])
 
    if (!(pid = fork())) {
       for (i=0; i<loop; i++) { // child
-               // swap the contents of shmPtr[0] and shmPtr[1]
+         // swap the contents of shmPtr[0] and shmPtr[1]
          semop(semId, WAIT, 1); // semaphore wait block
 	       memcpy(&temp, &shmPtr[0], sizeof(shmPtr[0]));
 	       memcpy(&shmPtr[0], &shmPtr[1], sizeof(shmPtr[1]));
@@ -75,7 +72,7 @@ int main (int argc, char *argv[])
    }
    else
       for (i=0; i<loop; i++) { // parent
-               // swap the contents of shmPtr[1] and shmPtr[0]
+         // swap the contents of shmPtr[1] and shmPtr[0]
          semop(semId, WAIT, 1); // semaphore wait block
 	       memcpy(&temp, &shmPtr[0], sizeof(shmPtr[0]));
 	       memcpy(&shmPtr[0], &shmPtr[1], sizeof(shmPtr[1]));
